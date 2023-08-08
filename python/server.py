@@ -2,9 +2,9 @@ import serial
 from datetime import datetime
 
 def write(f, line):
-	with open(f, "a") as out:
-		out.write(line)
-		
+    with open(f, "a") as out:
+        out.write(line)
+
 def read_conf():
     config = {}
     with open("conf.ini") as f:
@@ -20,17 +20,19 @@ def read_conf():
 
 
 def read_serial(port):
-	with serial.Serial(port) as conn:
-		line = conn.readline();
-		print(line)
-		
-		sdate = datetime.now().strftime("%Y%m%d_%H%M%S")
-		leituras = "leituras"+sdate+".txt" 
-		while line:
-			line = conn.readline();
-			print(line)
-			write(leituras, line.decode())
-		
+    with serial.Serial(port) as conn:
+        line = conn.readline()
+        print(line)
+
+        sdate = datetime.now().strftime("%Y%m%d_%H%M%S")
+        leituras = "leituras"+sdate+".txt" 
+        while line:
+            line = conn.readline()
+            s = datetime.now().strftime("%Y%m%d_%H%M%S")
+            line = s + "," + line.decode()
+            print(line)
+            write(leituras, line)
+
 ####################
 
 conf = read_conf()

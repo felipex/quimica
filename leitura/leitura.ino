@@ -60,10 +60,6 @@ void loop() {
   unsigned int valProp = 0;
   
   if (old_state != state) {
-    //Serial.print("State changed -> ");
-    //Serial.println(state);
-    //Serial.println(STATE_OFF);
-    //Serial.println(STATE_READING);
     old_state = state;
     if (state == 1) us = 0;
 
@@ -75,8 +71,6 @@ void loop() {
       valProp = analogRead(PROP_PIN);
       enviaLeitura(us, valProp * 5./1023);
       readProp = !readProp;
-      //Serial.print("PROP -> ");
-      //Serial.println(valProp);
       digitalWrite(LED_ONOFF, LOW);
     }
   }
@@ -91,5 +85,5 @@ void updateState() {
 void enviaLeitura(unsigned long int time, float valor) {
   Serial.print(time);
   Serial.print(",");
-  Serial.println(String(valor, 3));
+  Serial.println(valor, 3);
 }
